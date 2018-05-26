@@ -1,3 +1,4 @@
-.idea/*
-vender/*
-bin/chromedriver.exe
+/.idea/*
+/vender/*
+/bin/chromedriver.exe
+test.php
