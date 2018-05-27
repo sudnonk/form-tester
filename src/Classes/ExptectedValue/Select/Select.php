@@ -5,23 +5,28 @@
 
 namespace sudnonk\FormTester\ExpectedValue\Select;
 
-use sudnonk\FormTester\ExpectedValue as Expected;
-use sudnonk\FormTester\ExpectedValue\Input as ExpectedInput;
+use sudnonk\FormTester\ExpectedValue\ExpectedValue;
 
-class Select extends Expected\ExpectedValue {
-    /** @var ExpectedInput\Text[] | ExpectedInput\Numeric[] 配列にあるべき値 */
+class Select extends ExpectedValue {
+    /** @var string $name このフォーム部品の名前 */
+    private $name;
+
+    /** @var string[] 配列にあるべき値 */
     private $values;
 
     /**
      * ExpectedArrayValue constructor.
      *
-     * @param array $values
+     * @param string $name このフォーム部品の名前
+     * @param array  $values
      *
      * @throws \InvalidArgumentException
      */
-    public function __construct(array $values) {
+    public function __construct(string $name, array $values) {
+        $this->setName($name);
+
         foreach ($values as $key => $value) {
-            if (is_string($key) && ($value instanceof ExpectedInput\Text || $value instanceof ExpectedInput\Numeric)) {
+            if (is_string($key) && is_string($value)) {
 
             } else {
                 throw new \InvalidArgumentException("check the parameters.");
@@ -31,14 +36,29 @@ class Select extends Expected\ExpectedValue {
     }
 
     /**
-     * @param ExpectedInput\Numeric[]|ExpectedInput\Text[] $values
+     * @return string
+     */
+    public function getName(): string {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    private function setName(string $name): void {
+        $this->name = $name;
+    }
+
+
+    /**
+     * @param string[] $values
      */
     private function setValues($values): void {
         $this->values = $values;
     }
 
     /**
-     * @return ExpectedInput\Numeric[]|ExpectedInput\Text[]
+     * @return string[]
      */
     public function getValues() {
         return $this->values;
