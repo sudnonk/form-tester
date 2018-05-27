@@ -19,7 +19,7 @@ class Numeric extends NormalValue {
         $this->setExpected($expected);
 
         if ($testData !== null) {
-            if (!Validate\Number::isValid($testData, $this->expected)) {
+            if (!Validate\Numeric::isValid($testData, $this->expected)) {
                 throw new \InvalidArgumentException("\$testData doesn't satisfy \$expected.");
             }
             if (is_int($testData)) {
@@ -67,7 +67,7 @@ class Numeric extends NormalValue {
             if ($this->expected->isAllowFloat()) {
                 $testData += mt_rand(1, 99) / 100;
             }
-        } while (!Validate\Number::isValid($testData, $this->expected));
+        } while (!Validate\Numeric::isValid($testData, $this->expected));
 
         return $testData;
     }

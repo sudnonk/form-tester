@@ -21,6 +21,16 @@ class Text extends Validate {
             throw new \InvalidArgumentException("check phpdoc.");
         }
 
+        $length = strlen($value);
+        if ($length < $expected->getMinLength() || $length > $expected->getMaxLength()) {
+            return false;
+        }
+        if ($expected->isRegexSet()) {
+            if (preg_match($expected->getRegex(), $value) !== 1) {
+                return false;
+            }
+        }
 
+        return true;
     }
 }
